@@ -18,10 +18,8 @@ func repeats(vals1, vals2 []int) []int {
 }
 
 func makeSlice() {
-	slc1 := make([]int, 0)
-	slc2 := make([]int, 0)
-	slc1 = append(slc1, 2, 4, 6, 6, 4)
-	slc2 = append(slc2, 2, 4, 4, 6, 6)
+	slc1 := []int{2, 4, 6, 6, 4}
+	slc2 := []int{2, 4, 6, 6, 4}
 	log.Println(repeats(slc1, slc2))
 
 }

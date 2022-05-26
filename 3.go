@@ -1,25 +1,36 @@
 package main
 
 import (
-	"log"
-	"time"
+	"sync"
 )
 
-func ssquare(num int) int {
-	return num * num
+type Sums struct {
+	sync.RWMutex
+	res int
 }
 
-func ddo() {
-	var (
-		nums []int
-		sum  int
-	)
-	nums = append(nums, 2, 4, 6, 8, 10)
-	for _, num := range nums {
-		go func() {
-			sum += ssquare(num)
-		}()
-		time.Sleep(1 * time.Millisecond)
+func NewSums() *Sums {
+	return &Sums{
+		res: 0,
 	}
-	log.Println(sum)
+}
+
+func (s *Sums) sumSqrts(vals int, wg *sync.WaitGroup) {
+	s.RLock()
+	defer s.RUnlock()
+	s.res += vals
+	wg.Done()
+}
+
+func sumSqrts(vals []int) int {
+	s := NewSums()
+	wg := sync.WaitGroup{}
+	vals = sqrt(vals)
+	lenvals := len(vals)
+	wg.Add(lenvals)
+	for i := 0; i < lenvals; i++ {
+		go s.sumSqrts(vals[i], &wg)
+	}
+	wg.Wait()
+	return s.res
 }

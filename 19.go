@@ -1,14 +1,9 @@
 package main
 
-import (
-	"strings"
-)
-
-func reverseLettersInString(data string) (newstr string) {
-	slc := strings.Split(data, "")
-	lenslc := len(slc)
-	for i := lenslc - 1; i >= 0; i-- {
-		newstr += slc[i]
+func reverseLettersInString(str string) (newrune []rune) {
+	data := []rune(str)
+	for i := len(data) - 1; i >= 0; i-- {
+		newrune = append(newrune, data[i])
 	}
-	return newstr
+	return newrune
 }

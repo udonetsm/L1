@@ -35,7 +35,7 @@ func (c *Counter) Count(wg *sync.WaitGroup, finish, start int64) int64 {
 	return c.num
 }
 
-func Counting(start, finish int64) {
+func counting(start, finish int64) {
 	defer helper.PanicCapture("Counting")
 	c := New()
 	wg := &sync.WaitGroup{}

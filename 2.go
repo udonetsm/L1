@@ -1,24 +1,35 @@
 package main
 
 import (
-	"fmt"
-	"time"
+	"sync"
 )
 
-func square(num int) {
-	fmt.Println(num * num)
-	/* other way to write to stdout*/
-	//fmt.Fprintln(os.Stdout, num*num)
+type Mult struct {
+	sync.RWMutex
+	res []int
 }
 
-func do() {
-	nums := [...]int{2, 4, 6, 8, 10}
-	for _, num := range nums {
-		go square(num)
+func NewMult() *Mult {
+	m := make([]int, 0)
+	return &Mult{
+		res: m,
 	}
-	// after goroutines called, compiler want to swith to next line. There is end of the programm
-	// for hold closing, programm do callback of scanln, to show results
-	//fmt.Scanln()
-	// or
-	time.Sleep(1 * time.Millisecond)
+}
+func (m *Mult) Sqrt(val int, wg *sync.WaitGroup) {
+	m.Lock()
+	defer m.Unlock()
+	m.res = append(m.res, val*val)
+	wg.Done()
+}
+
+func sqrt(vals []int) []int {
+	r := NewMult()
+	wg := sync.WaitGroup{}
+	lenvals := len(vals)
+	wg.Add(lenvals)
+	for i := 0; i < lenvals; i++ {
+		go r.Sqrt(vals[i], &wg)
+	}
+	wg.Wait()
+	return r.res
 }
