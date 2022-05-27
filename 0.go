@@ -4,13 +4,13 @@ func main() {
 	vals := []int{2, 4, 6, 8, 10}
 	vals = vals
 	// life(12000, 8, "Good morning", "cure other people")			//1
-	// log.Println(sqrt(vals))     									//2
-	// log.Println(sumSqrts(vals)) 									//3
+	// log.Println(sqrt(vals)) //2
+	// log.Println(sumSqrts(vals)) //3
 	// log.Println(rW()) 											//4
 	// rw(5)														//5
 	// stoppingGoroutine2() 										//6 or stoppingGoroutine1()
 	// log.Println(make_slice_and_insert_into_map())				//7
-	// 										 						//8 переделать
+	// log.Println(strconv.FormatInt(int64(changeBitTo1(559, 12)), 2)) //8 переделать
 	// getx_and_sum() 												//9
 	// celc()														//10
 	// makeSlice()													//11
