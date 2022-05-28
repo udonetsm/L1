@@ -10,7 +10,7 @@ func main() {
 	// rw(5)														//5
 	// stoppingGoroutine2() 										//6 or stoppingGoroutine1()
 	// log.Println(make_slice_and_insert_into_map())				//7
-	// log.Println(strconv.FormatInt(int64(changeBitTo1(559, 12)), 2)) //8 переделать
+	// log.Println(changeBit())										//8
 	// getx_and_sum() 												//9
 	// celc()														//10
 	// makeSlice()													//11
@@ -19,7 +19,7 @@ func main() {
 	// gettypeReflect(1122409084)									//14
 	// make_arr_and_sort()											//16
 	// make_for_Binary(12)											//17
-	// counting(34, 500) 											//18
+	// counting(34, 500) //18
 	// log.Println(string(reverseLettersInString("testing"))) 		//19
 	// log.Println(reverseWordsInString("tesing data string"))      //20
 	// setRoundWinsowInHumanBuilding()								//21
@@ -28,6 +28,7 @@ func main() {
 	// compute(2, 2, 4, 4) 											//24
 	// CallSleep()													//25
 	// log.Println(countLetters("teststring")) 						//26
+
 }
 
 //  4, 5,6, 8, 15

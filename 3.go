@@ -19,7 +19,6 @@ func (s *Sums) sumSqrts(vals int, wg *sync.WaitGroup) {
 	s.RLock()
 	defer s.RUnlock()
 	s.res += vals
-	wg.Done()
 }
 
 func sumSqrts(vals []int) int {
@@ -29,7 +28,10 @@ func sumSqrts(vals []int) int {
 	lenvals := len(vals)
 	wg.Add(lenvals)
 	for i := 0; i < lenvals; i++ {
-		go s.sumSqrts(vals[i], &wg)
+		go func(i int) {
+			s.sumSqrts(vals[i], &wg)
+			wg.Done()
+		}(i)
 	}
 	wg.Wait()
 	return s.res

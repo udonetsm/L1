@@ -15,11 +15,10 @@ func NewMult() *Mult {
 		res: m,
 	}
 }
-func (m *Mult) Sqrt(val int, wg *sync.WaitGroup) {
+func (m *Mult) Sqrt(val int) {
 	m.Lock()
 	defer m.Unlock()
 	m.res = append(m.res, val*val)
-	wg.Done()
 }
 
 func sqrt(vals []int) []int {
@@ -28,7 +27,10 @@ func sqrt(vals []int) []int {
 	lenvals := len(vals)
 	wg.Add(lenvals)
 	for i := 0; i < lenvals; i++ {
-		go r.Sqrt(vals[i], &wg)
+		go func(i int) {
+			r.Sqrt(vals[i])
+			wg.Done()
+		}(i)
 	}
 	wg.Wait()
 	return r.res
