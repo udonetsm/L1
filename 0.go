@@ -1,6 +1,6 @@
 package main
 
-import "L1/concatenate"
+import "fmt"
 
 func main() {
 	vals := []int{2, 4, 6, 8, 10}
@@ -30,5 +30,19 @@ func main() {
 	// compute(2, 2, 4, 4) 											//24
 	// CallSleep()													//25
 	// log.Println(countLetters("teststring")) 						//26
-	println(string(concatenate.ConcCopy()))
+
+	// println(string(concatenate.ConcCopy()))
+
+	// var aa struct{} = struct{}{}
+	// println(unsafe.Sizeof(aa))
+
+	// var slice []int
+	// slice1 := []int{ /* initialize elements */ }
+	// slice2 := make([]int, 2)
+	// slice3 := new([]int)
+	/* *slice3 = append(*slice3, 21, 43, 12, 12)
+	for _, r := range *slice3 {
+		println(r)
+	}*/ 
 }
+
