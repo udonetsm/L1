@@ -1,5 +1,7 @@
 package main
 
+import "L1/concatenate"
+
 func main() {
 	vals := []int{2, 4, 6, 8, 10}
 	vals = vals
@@ -28,7 +30,5 @@ func main() {
 	// compute(2, 2, 4, 4) 											//24
 	// CallSleep()													//25
 	// log.Println(countLetters("teststring")) 						//26
-
+	println(string(concatenate.ConcCopy()))
 }
-
-//  4, 5,6, 8, 15

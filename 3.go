@@ -6,7 +6,7 @@ import (
 
 // descroption of object
 type Sums struct {
-	sync.RWMutex
+	sync.Mutex
 	res int
 }
 
@@ -19,8 +19,8 @@ func NewSums() *Sums {
 
 // sums all sqrts of object safety
 func (s *Sums) sumSqrts(vals int) {
-	s.RLock()
-	defer s.RUnlock()
+	s.Lock()
+	defer s.Unlock()
 	s.res += vals
 }
 

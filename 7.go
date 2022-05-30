@@ -6,7 +6,7 @@ import (
 
 // description of object
 type Mapping struct {
-	sync.RWMutex
+	sync.Mutex
 	mp map[int]int
 }
 
@@ -21,8 +21,8 @@ func Init() *Mapping {
 //insert into
 func (m *Mapping) Set(key, value int) {
 	m.Lock()
-	defer m.Unlock()
 	m.mp[key] = value
+	m.Unlock()
 }
 
 func make_slice_and_insert_into_map() map[int]int {

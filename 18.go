@@ -7,7 +7,7 @@ import (
 // description object
 type Counter struct {
 	num int64
-	sync.RWMutex
+	sync.Mutex
 }
 
 // returns new object

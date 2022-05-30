@@ -1,17 +1,16 @@
 package main
 
-/* import (
-	"errors"
-	"log"
-)
-
 var justString string
+
+func createHugeString(i int) (str string) {
+	return
+}
 
 func someFunc(val string) string {
 	v := createHugeString(1 << 10)
 	out := 100
 	if out > len(v) {
-		log.Fatal(errors.New("out of range"), out)
+		return v
 	}
 	justString = v[:100]
 	return justString
@@ -19,4 +18,4 @@ func someFunc(val string) string {
 
 func mmain() {
 	someFunc(justString)
-} */
+}

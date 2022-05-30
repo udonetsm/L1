@@ -6,7 +6,7 @@ import (
 
 // struc of result counting
 type Mult struct {
-	sync.RWMutex
+	sync.Mutex
 	res []int
 }
 
@@ -21,8 +21,8 @@ func NewMult() *Mult {
 //safe find of sqrt
 func (m *Mult) Sqrt(val int) {
 	m.Lock()
-	defer m.Unlock()
 	m.res = append(m.res, val*val)
+	m.Unlock()
 }
 
 // it create new storage and calls all function
