@@ -1,38 +1,38 @@
 package main
 
-import (
-	"fmt"
-	"os"
-)
-
-func getX(nums []int) <-chan int {
-	och := make(chan int)
+// get all values and insert it to channel
+func writeX(values ...int) <-chan int {
+	ch := make(chan int)
 	go func() {
-		for _, num := range nums {
-			och <- num
+		for _, val := range values {
+			ch <- val
 		}
-		close(och)
+		// close channel when values finished
+		close(ch)
 	}()
-	return och
+	return ch
 }
 
-func sum(nums <-chan int) <-chan int {
-	och := make(chan int)
+// returns multiplicated values from origin chan to pout chan
+func multX(ch <-chan int) <-chan int {
+	// create channel for capture written values
+	out := make(chan int)
 	go func() {
-		for num := range nums {
-			num *= 2
-			och <- num
+		for writen := range ch {
+			out <- writen * 2
 		}
-		close(och)
+		// close channel when values finished
+		close(out)
 	}()
-	return och
+	return out
 }
 
-func getx_and_sum() {
-	origin := [...]int{2, 1, 13, 43, 23}
-	nums := getX(origin[0:])
-	result := sum(nums)
-	for sums := range result {
-		fmt.Fprintln(os.Stdout, sums)
+func callWriteAndSum() {
+	// make origin channel
+	vals := writeX(12, 43, 65, 12, 444, 23)
+	// make out channel from origin channel
+	out := multX(vals)
+	for val := range out {
+		println(val)
 	}
 }

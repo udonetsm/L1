@@ -5,10 +5,12 @@ import (
 	"time"
 )
 
+// unblock after d time
 func sleep(d time.Duration) {
 	<-time.After(d)
 }
 
+// unblock after d ticks
 func sleep2(d time.Duration) time.Time {
 	ticker := time.Tick(d)
 	for done := range ticker {

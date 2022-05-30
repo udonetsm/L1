@@ -1,19 +1,30 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"reflect"
 )
 
-func gettypeReflect(val interface{}) {
-	log.Println(reflect.TypeOf(val).Kind())
+func getTypeSwitch(val interface{}) string {
+	t := reflect.ValueOf(val)
+	switch t.Kind() {
+	case reflect.Chan:
+		return "chan"
+	case reflect.Int:
+		return "int"
+	case reflect.Bool:
+		return "bool"
+	case reflect.String:
+		return "string"
+	default:
+		return reflect.TypeOf(val).String()
+	}
 }
 
-func getTypeSwitch(val interface{}) {
-	switch val.(type) {
-	case int:
-		log.Println("chan")
-		// do something
-	default:
-	}
+func callGetType() {
+	ch := make(chan int)
+	var str string
+	var num int
+	var b bool
+	fmt.Println(getTypeSwitch(ch), getTypeSwitch(str), getTypeSwitch(num), getTypeSwitch(b))
 }

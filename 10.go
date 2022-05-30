@@ -6,6 +6,7 @@ import (
 	"sync"
 )
 
+// description of object
 type Set struct {
 	sync.RWMutex
 	subs map[int]*SubSet
@@ -15,19 +16,21 @@ type SubSet struct {
 	set map[float64]int
 }
 
+// return new storage(set)
 func NewSet() *Set {
 	return &Set{
 		subs: map[int]*SubSet{},
 	}
 }
 
-// возвращает имя подмножества(id подмножества)
+// returns name of subset from step of temperature(10)
 func nameSubset(val float64) (name int, value float64) {
 	name = int(math.Trunc(val/10) * 10)
 	value = val
 	return
 }
 
+//add temperature to target subset and subset to target set
 func (s *Set) Insert(val float64) {
 	name, v := nameSubset(val)
 	item, ok := s.subs[name]
@@ -42,6 +45,7 @@ func (s *Set) Insert(val float64) {
 	}
 }
 
+// returns set by target steps
 func (s *Set) Get(SubNames ...int) (vals []*SubSet, subnames []int) {
 	for _, SubName := range SubNames {
 		s.RLock()

@@ -4,32 +4,37 @@ import (
 	"sync"
 )
 
+// descroption of object
 type Sums struct {
 	sync.RWMutex
 	res int
 }
 
+// gives new object
 func NewSums() *Sums {
 	return &Sums{
 		res: 0,
 	}
 }
 
-func (s *Sums) sumSqrts(vals int, wg *sync.WaitGroup) {
+// sums all sqrts of object safety
+func (s *Sums) sumSqrts(vals int) {
 	s.RLock()
 	defer s.RUnlock()
 	s.res += vals
 }
 
+// call all functions
 func sumSqrts(vals []int) int {
 	s := NewSums()
+	// we should wait for sum all
 	wg := sync.WaitGroup{}
 	vals = sqrt(vals)
 	lenvals := len(vals)
 	wg.Add(lenvals)
 	for i := 0; i < lenvals; i++ {
 		go func(i int) {
-			s.sumSqrts(vals[i], &wg)
+			s.sumSqrts(vals[i])
 			wg.Done()
 		}(i)
 	}

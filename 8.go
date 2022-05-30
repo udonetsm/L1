@@ -5,16 +5,22 @@ import (
 	"strconv"
 )
 
+// create mask mask and shift 1 to target position
 func changeBitTo1(val, position int) int {
 	mask := 1 << position
+	// change target bit
 	return val | mask
 }
 
+// create mask, shift 1 to target position and invert 1 to 0
 func changeBitTo0(val, position int) int {
 	mask := ^(1 << position)
+	// change target bit to 0
 	return val & mask
 }
 
+// if we try to change 63 bit, number will be incorrect(max value for type not negative number).
+// Then need to invert number and increment once
 func negative(val int) int {
 	return ^val + 1
 }

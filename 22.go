@@ -6,12 +6,14 @@ import (
 	"math/big"
 )
 
+// struct of object
 type Big struct {
 	x      string
 	y      string
 	result string
 }
 
+// create BigInt from string
 func (selfbig *Big) NewBig() (vals []*big.Int) {
 	a := new(big.Int)
 	b := new(big.Int)
@@ -23,12 +25,15 @@ func (selfbig *Big) NewBig() (vals []*big.Int) {
 	return
 }
 
+// do all actions
 func Acts(x, y string) (vls []string) {
+	// get object
 	vals := Big{
 		x:      x,
 		y:      y,
 		result: "",
 	}
+	// get big values from object
 	v := vals.NewBig()
 	vls = append(vls,
 		"\n(+)", v[2].Add(v[0], v[1]).String(),

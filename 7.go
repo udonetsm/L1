@@ -4,11 +4,13 @@ import (
 	"sync"
 )
 
+// description of object
 type Mapping struct {
 	sync.RWMutex
 	mp map[int]int
 }
 
+// return new object
 func Init() *Mapping {
 	mp := make(map[int]int)
 	return &Mapping{
@@ -16,25 +18,26 @@ func Init() *Mapping {
 	}
 }
 
-func (m *Mapping) Set(data []int, wg *sync.WaitGroup) {
-	lendata := len(data)
-	wg.Add(lendata)
-	for i := 0; i < lendata; i++ {
-		go func(i int) {
-			m.Lock()
-			defer m.Unlock()
-			m.mp[i] = data[i]
-			wg.Done()
-		}(i)
-	}
+//insert into
+func (m *Mapping) Set(key, value int) {
+	m.Lock()
+	defer m.Unlock()
+	m.mp[key] = value
 }
 
 func make_slice_and_insert_into_map() map[int]int {
-	slc := make([]int, 0)
-	slc = append(slc, 4333333, 544545, 65765757, 23423423, 6567567456)
+	slc := []int{333333, 544545, 65765757, 23423423, 6567567456}
+	// need to wait for inserting finished for all items of map
 	wg := sync.WaitGroup{}
 	mp := Init()
-	mp.Set(slc, &wg)
+	lenslc := len(slc)
+	for i := 0; i < lenslc; i++ {
+		wg.Add(1)
+		go func(i int) {
+			mp.Set(i, slc[i])
+			wg.Done()
+		}(i)
+	}
 	wg.Wait()
 	return mp.mp
 }

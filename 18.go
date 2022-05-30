@@ -1,43 +1,43 @@
 package main
 
 import (
-	"log"
 	"sync"
-	"sync/atomic"
-
-	"github.com/udonetsm/help/helper"
 )
 
+// description object
 type Counter struct {
 	num int64
 	sync.RWMutex
 }
 
+// returns new object
 func New() *Counter {
-	defer helper.PanicCapture("new")
 	return &Counter{
-		num: -1,
+		num: 0,
 	}
 }
 
-func (c *Counter) Count(wg *sync.WaitGroup, finish, start int64) int64 {
-	defer helper.PanicCapture("Count")
-	for i := start; i <= finish; i++ {
-		wg.Add(1)
-		go func(i int64) {
-			c.Lock()
-			atomic.AddInt64(&c.num, 1) //or c.num+=1
-			c.Unlock()
-			wg.Done()
-		}(i)
-	}
-	wg.Wait()
-	return c.num
+// cuncurrent increment
+func (c *Counter) Increment() {
+	c.Lock()
+	defer c.Unlock()
+	c.num += 1
 }
 
-func counting(start, finish int64) {
-	defer helper.PanicCapture("Counting")
-	c := New()
+func counting(finish int) int {
+	// neew wait for all go routines finished
 	wg := &sync.WaitGroup{}
-	log.Println("last counter value is", c.Count(wg, finish, start))
+	// make new object
+	counter := New()
+	for i := 0; i < finish; i++ {
+		wg.Add(1)
+		//start increment in go routine
+		go func(counter *Counter, wg *sync.WaitGroup) {
+			counter.Increment()
+			wg.Done()
+		}(counter, wg)
+	}
+	// waiting to finish
+	wg.Wait()
+	return int(counter.num)
 }
